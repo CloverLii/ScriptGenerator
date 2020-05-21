@@ -1,0 +1,7 @@
+#{{{ Marathon
+require_fixture 'default'
+#}}} Marathon
+
+severity("normal")
+
+def test
