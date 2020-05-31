@@ -163,7 +163,12 @@ public class ScriptGenerator extends JFrame {
 		generateSBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				generateSWTBotScript();
+				try {
+					generateSWTBotScript();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -218,7 +223,7 @@ public class ScriptGenerator extends JFrame {
 	/*
 	 *  Save generated script file
 	 */
-	private void saveScript(String scriptName) {
+	private void saveScript(String scriptName, String content) {
 		JFileChooser saveChooser = new JFileChooser();
 		saveChooser.setDialogTitle("Save script file to");
 		saveChooser.setSelectedFile(new File(scriptName));
@@ -231,7 +236,7 @@ public class ScriptGenerator extends JFrame {
            try {
         	   		file.createNewFile();
         	   		FileWriter  writer = new FileWriter(file);
-        	   		writer.write("This\n is\n an\n example\n");
+        	   		writer.write(content);
         	   		writer.flush();
         	   		writer.close();
            }catch(IOException e) {
@@ -258,30 +263,32 @@ public class ScriptGenerator extends JFrame {
 		}
 		System.out.println("******** Marathon final output script **********");
 		System.out.println(outFileStr);
-		saveScript(fileName);
+		saveScript(fileName, outFileStr);
 	}
-	private void generateSWTBotScript() {
+	
+	private void generateSWTBotScript()  throws FileNotFoundException {
 		// the test script for SWTBot is java file
 		String fileName = "SWTBotScript" + date +".java";
 		String outFileStr = "";
 		try {
 			outFileStr = seq.readScriptHead(SWTBOT_BASE)
 					+ seq.getAllActions(eleFilterList, ScriptType.SWTBot)
-					+ seq.mEndStr;
+					+ seq.sEndStr;
 		}catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		System.out.println("******** SWTBot final output script **********");
 		System.out.println(outFileStr);
-		saveScript(fileName);
+		saveScript(fileName, outFileStr);
 	}
+	
 	/*
 	 * Add widgets info to list and show in generator app
 	 */
 	private void addWidgetInfo() {
-		String id = eleInfoComBox.getSelectedItem().toString();
-		String content = eleContentText.getText();
-		String type = eleTypeComBox.getSelectedItem().toString();
+		String id = eleInfoComBox.getSelectedItem().toString().trim();
+		String content = eleContentText.getText().trim();
+		String type = eleTypeComBox.getSelectedItem().toString().trim();
 		
 		// eleFilterList is one of param to generate script
 		SequenceAction newObj = new SequenceAction(id, content, type);

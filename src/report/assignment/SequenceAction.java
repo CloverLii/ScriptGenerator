@@ -2,15 +2,14 @@ package report.assignment;
 
 public class SequenceAction {
 
-	private String widgetID;	// widget name/content
-	private String widgetType; // widget type, button, label
+	private String widgetID;	
+	private String widgetType; 
 	private String widgetContent;	
 	
 	enum WidgetType{
 		Button,
 		Label
 	}
-	public WidgetType eleType;
 	
 	SequenceAction(String id, String type)
 	{
@@ -24,6 +23,7 @@ public class SequenceAction {
 		this.widgetContent = content;
 		this.widgetType = type;
 	}
+	
 	public String getWidgetID(){
 		return widgetID;
 	}

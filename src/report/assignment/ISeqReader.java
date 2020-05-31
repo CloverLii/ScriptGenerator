@@ -72,7 +72,7 @@ public class ISeqReader {
 							break;
 						case SWTBot:
 							//bot.button("yesStartBtn").click();
-							sBuilder.append("bot.button(\"").append(content).append("\").click()").append("\n");
+							sBuilder.append("\t\tbot.button(\"").append(content).append("\").click();").append("\n");
 							break;								
 					}
 					
