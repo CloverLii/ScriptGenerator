@@ -18,6 +18,12 @@ public class ISeqReader {
 		Label,
 		Text
 	}
+	
+	public static enum ScriptType{
+		Marathon,
+		SWTBot
+	}
+	
 	private String fileName;
 	private static BufferedReader br;
 
@@ -26,16 +32,17 @@ public class ISeqReader {
 	}
 	
 	private Stream<String> getAllWidigets() throws FileNotFoundException {		
-		try {
+		//try {
 			return new BufferedReader(new FileReader(fileName))
 					.lines()
 					.map(str -> {
-						int splitIndex = str.lastIndexOf(",");
-						return str.substring(splitIndex + 1, str.length() - 1);});
-		}catch(Exception e) {
-			e.printStackTrace();
-		}		
-		return null;
+							int splitIndex = str.lastIndexOf(",");
+							return str.substring(splitIndex + 1, str.length() - 1);}
+					);
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}		
+		//return null;
 	}
 	
 	public List<String> getDistinceWidigets() throws FileNotFoundException{		
@@ -49,16 +56,26 @@ public class ISeqReader {
 		return null;
 	}
 	
-	public StringBuilder getAllActions(List<ActionSequence> objList) throws FileNotFoundException{
+	public StringBuilder getAllActions(List<SequenceAction> objList, ScriptType scriptType) throws FileNotFoundException{
 		List<String> widgetList = getAllWidigets().collect(Collectors.toList());
 		StringBuilder sBuilder = new StringBuilder("");
 		for(String str: widgetList) {
-			for(ActionSequence obj: objList) {
+			for(SequenceAction obj: objList) {
 				String id = obj.getWidgetID();
 				String type = obj.getWidgetType();
 				String content = obj.getWidgetContent();
 				if(str.equals(id) && type.equals(WidgetType.Button.toString())) {
-					sBuilder.append("click(\"").append(content).append("\")").append("\n");
+					switch(scriptType) {
+						case Marathon:
+							//click("+")
+							sBuilder.append("click(\"").append(content).append("\")").append("\n");
+							break;
+						case SWTBot:
+							//bot.button("yesStartBtn").click();
+							sBuilder.append("bot.button(\"").append(content).append("\").click()").append("\n");
+							break;								
+					}
+					
 				}
 			}
 		}
@@ -86,7 +103,5 @@ public class ISeqReader {
 	public String readAppName(String appName) {
 		return ("with_window(\"" + appName + "\"){\n");
 	}	
-	
-	
-	
+		
 }

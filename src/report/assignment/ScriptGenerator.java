@@ -5,6 +5,8 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import report.assignment.ISeqReader.ScriptType;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -40,8 +42,10 @@ public class ScriptGenerator extends JFrame {
 	public JTextField eleContentText;
 	public JTextField appNameText;
 	
+	private final String MARATHON_BASE = "base/Script_Marathon";
+	private final String SWTBOT_BASE = "base/Script_SWTBot";
 	StringBuilder eleInfoPair;
-	List<ActionSequence> eleFilterList;
+	List<SequenceAction> eleFilterList;
 	String appName = "";
     static final String hintText = " Hints:" + "\n" + " Widget ID: the idenfication of wigdet in ISeq file " + "\n" + " Widget Content:  the content shown on the widget";
 	static final String[] eleTypes = new String[]{"Button", "Label", "Text"};
@@ -193,7 +197,7 @@ public class ScriptGenerator extends JFrame {
 			eleTypeComBox.addItem(type);
 		}
 		eleInfoPair = new StringBuilder("");
-		eleFilterList = new ArrayList<ActionSequence>();
+		eleFilterList = new ArrayList<SequenceAction>();
 		date = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
 	}
 
@@ -245,20 +249,30 @@ public class ScriptGenerator extends JFrame {
 		System.out.println("***** App name: " + appName);
 		String outFileStr = "";
 		try {
-			outFileStr = seq.readScriptHead("base/Script_Marathon")
+			outFileStr = seq.readScriptHead(MARATHON_BASE)
 					+ seq.readAppName(appName)
-					+ seq.getAllActions(eleFilterList)
+					+ seq.getAllActions(eleFilterList, ScriptType.Marathon)
 					+ seq.mEndStr;
 		}catch(FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("******** final output script **********");
+		System.out.println("******** Marathon final output script **********");
 		System.out.println(outFileStr);
 		saveScript(fileName);
 	}
 	private void generateSWTBotScript() {
 		// the test script for SWTBot is java file
 		String fileName = "SWTBotScript" + date +".java";
+		String outFileStr = "";
+		try {
+			outFileStr = seq.readScriptHead(SWTBOT_BASE)
+					+ seq.getAllActions(eleFilterList, ScriptType.SWTBot)
+					+ seq.mEndStr;
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("******** SWTBot final output script **********");
+		System.out.println(outFileStr);
 		saveScript(fileName);
 	}
 	/*
@@ -270,7 +284,7 @@ public class ScriptGenerator extends JFrame {
 		String type = eleTypeComBox.getSelectedItem().toString();
 		
 		// eleFilterList is one of param to generate script
-		ActionSequence newObj = new ActionSequence(id, content, type);
+		SequenceAction newObj = new SequenceAction(id, content, type);
 		eleFilterList.add(newObj);
 		eleInfoPair.append(id).append("--").append(content).append("--").append(type).append("\n");
 
