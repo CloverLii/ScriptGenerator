@@ -25,9 +25,8 @@ public class InfusionPumpPluginTest {
 	public void testSettingRate(){
 		// slow down tests
 		SWTBotPreferences.PLAYBACK_DELAY = 10;
+		
 		// set to the default timeout of 5 seconds
 		SWTBotPreferences.TIMEOUT = 5000;
 
-		bot.button("onOffBtn").click(); // power on -- double click
-		bot.button("yesStartBtn").click(); // start to configure -- doulbe click
 
