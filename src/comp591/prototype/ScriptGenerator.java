@@ -251,23 +251,28 @@ public class ScriptGenerator extends JFrame {
 	 * Generate script for Marathon, ruby file
 	 */
 	private void generateMarathonScript() throws FileNotFoundException {
-		if(eleFilterList.size() == 0) {
+		// targeted app name is one of param to generate script
+		appName = appNameText.getText(); 
+		System.out.println("***** App name: " + appName);
+		String fileName = "MarathonScript" + date +".rb";		
+		String outFileStr = "";
+		
+		if(filePath.trim().equals("")) {
+			JOptionPane.showMessageDialog(new JFrame(),
+				    "Please select an ISeq file",
+				    "Information",
+				    JOptionPane.PLAIN_MESSAGE);
+		}else if(eleFilterList.size() == 0) {
 			JOptionPane.showMessageDialog(new JFrame(),
 				    "Please add widget information",
 				    "Information",
 				    JOptionPane.PLAIN_MESSAGE);
-		}else if(appName == ""){
+		}else if(appName.equals("")){
 			JOptionPane.showMessageDialog(new JFrame(),
 				    "Please input application name",
 				    "Information",
 				    JOptionPane.PLAIN_MESSAGE);
 		}else {
-			String fileName = "MarathonScript" + date +".rb";
-			// targeted app name is one of param to generate script
-			appName = appNameText.getText(); 
-			System.out.println("***** App name: " + appName);
-			
-			String outFileStr = "";
 			try {
 				outFileStr = seq.readScriptHead(MARATHON_BASE)
 						+ seq.readAppName(appName)
@@ -287,14 +292,20 @@ public class ScriptGenerator extends JFrame {
 	 * Generate script from SWTBot, java file
 	 */
 	private void generateSWTBotScript()  throws FileNotFoundException {
-		if(eleFilterList.size() == 0) {
+		String fileName = "SWTBotScript" + date +".java";
+		String outFileStr = "";
+		
+		if(filePath.trim().equals("")) {
+			JOptionPane.showMessageDialog(new JFrame(),
+				    "Please select an ISeq file",
+				    "Information",
+				    JOptionPane.PLAIN_MESSAGE);
+		}else if(eleFilterList.size() == 0) {
 			JOptionPane.showMessageDialog(new JFrame(),
 				    "Please add widget information",
 				    "Information",
 				    JOptionPane.PLAIN_MESSAGE);
 		}else {
-			String fileName = "SWTBotScript" + date +".java";
-			String outFileStr = "";
 			try {
 				outFileStr = seq.readScriptHead(SWTBOT_BASE)
 						+ seq.getAllActions(eleFilterList, ScriptType.SWTBot)
@@ -313,14 +324,21 @@ public class ScriptGenerator extends JFrame {
 	 * Construct list of SequenceAction and show inputed info in text area
 	 */
 	private void addWidgetInfo() {
+		String content = eleContentText.getText().trim();
+	
 		if(filePath.trim().equals("")) {
 			JOptionPane.showMessageDialog(new JFrame(),
 				    "Please select an ISeq file",
 				    "Information",
 				    JOptionPane.PLAIN_MESSAGE);
-		}else {
+		}else if(content.equals("")) {
+			JOptionPane.showMessageDialog(new JFrame(),
+				    "Please input widget content",
+				    "Information",
+				    JOptionPane.PLAIN_MESSAGE);
+
+		}else {	
 			String id = eleInfoComBox.getSelectedItem().toString().trim();
-			String content = eleContentText.getText().trim();
 			String type = eleTypeComBox.getSelectedItem().toString().trim();
 			
 			// eleFilterList is one of param to generate script
