@@ -12,7 +12,7 @@
 </cpmodel> 
 
  <cpmodel> 
- <cpname>Initialize</cpname> 
+ <cpname>Initial</cpname> 
 <widget>
  <name>YesStartBtn</name> 
  <cat>ActionCtrl</cat> 

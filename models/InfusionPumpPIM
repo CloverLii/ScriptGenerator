@@ -14,7 +14,7 @@
  <cpmodel> 
  <cpname>Infusing</cpname> 
 <widget>
- <name>YesStartBtn</name> 
+ <name>YesStartBtn</name> Initial
  <cat>ActionCtrl</cat> 
 <beh>I_SetVolume</beh> 
 </widget> 
@@ -117,7 +117,7 @@
 </cpmodel> 
 
  <cpmodel> 
- <cpname>Initialize</cpname> 
+ <cpname>Initial</cpname> 
 <widget>
  <name>YesStartBtn</name> 
  <cat>ActionCtrl</cat> 
@@ -259,16 +259,16 @@
 <PIM>
 <transition>
 <start>Off</start> 
- <end>Initialize</end> 
+ <end>Initial</end> 
  <ibeh>I_PowerOn</ibeh> 
  </transition> 
 <transition>
-<start>Initialize</start> 
+<start>Initial</start> 
  <end>SetVolume</end> 
  <ibeh>I_SetVolume</ibeh> 
  </transition> 
 <transition>
-<start>Initialize</start> 
+<start>Initial</start> 
  <end>Off</end> 
  <ibeh>I_PowerOff</ibeh> 
  </transition> 
@@ -334,7 +334,7 @@
  </transition> 
 <transition>
 <start>InfusionPaused</start> 
- <end>Initialize</end> 
+ <end>Initial</end> 
  <ibeh>I_StopInfusion</ibeh> 
  </transition> 
 <transition>

@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -45,14 +47,20 @@ public class ISeqReader {
 	/*
 	 * Get all widgets described in ISeq file
 	 */
-	private Stream<String> getAllWidigets() throws FileNotFoundException {		
-		return new BufferedReader(new FileReader(fileName))
-				.lines()
+	private Stream<String> getAllWidigets() throws IOException {
+		br = new BufferedReader(new FileReader(fileName));
+		String formatStr = br.readLine().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\)", "\\)\n");
+		System.out.println(formatStr);
+		List<String> str2List = new ArrayList<String>(Arrays.asList(formatStr.split("\\)")));
+		br.close();
+		
+		return str2List
+				.stream()
+				.filter(line -> line.length() > 1)
 				.map(str -> {
 						int splitIndex = str.lastIndexOf(",");
-						return str.substring(splitIndex + 1, str.length() - 1);}
-				);
-
+						return str.substring(splitIndex + 1, str.length());}
+				);				
 	}
 	
 	/*
@@ -76,7 +84,7 @@ public class ISeqReader {
 	 * 						   2. predefined widget types;
 	 * 						   3. list of <SequenceAction> that created based on user input
 	 */
-	public StringBuilder getAllActions(List<SequenceAction> objList, ScriptType scriptType) throws FileNotFoundException{
+	public StringBuilder getAllActions(List<SequenceAction> objList, ScriptType scriptType) throws IOException{
 		// list of all widgets
 		List<String> widgetList = getAllWidigets().collect(Collectors.toList());
 		StringBuilder sBuilder = new StringBuilder("");

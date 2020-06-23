@@ -141,7 +141,7 @@ public class ScriptGenerator extends JFrame {
 			public void actionPerformed(ActionEvent e){
 					try {
 						generateMarathonScript();
-					} catch (FileNotFoundException e1) {
+					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
 			}
@@ -153,8 +153,7 @@ public class ScriptGenerator extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				try {
 					generateSWTBotScript();
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
+				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
@@ -250,7 +249,7 @@ public class ScriptGenerator extends JFrame {
 	/*
 	 * Generate script for Marathon, ruby file
 	 */
-	private void generateMarathonScript() throws FileNotFoundException {
+	private void generateMarathonScript() throws IOException {
 		// targeted app name is one of param to generate script
 		appName = appNameText.getText(); 
 		System.out.println("***** App name: " + appName);
@@ -291,7 +290,7 @@ public class ScriptGenerator extends JFrame {
 	/*
 	 * Generate script from SWTBot, java file
 	 */
-	private void generateSWTBotScript()  throws FileNotFoundException {
+	private void generateSWTBotScript()  throws IOException {
 		String fileName = "SWTBotScript" + date +".java";
 		String outFileStr = "";
 		
