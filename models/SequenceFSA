@@ -1,6 +1,6 @@
 M = {Q,Σ,δ,S,F}
 Q = {Off,OnOffBtn,YesStartBtn,UpBtn,NoStpBtn}
 Σ = {click,check}
-δ = {(Off,click,OnOffBtn),(OnOffBtn,check,DisplayLabel),(Display,click,YesStartBtn),(YesStartBtn,click,UpBtn),(UpBtn,click,UpBtn),(UpBtn,check,DisplayLabel),(DisplayLabel,click,YesStartBtn),(UpBtn,click,UpBtn),(YesStartBtn,check,DisplayLabel),(YesStartBtn,click,YesStartBtn),(DisplayLabel,click,NoStopBtn),(NoStopBtn,check,DisplayLabel)}
+δ = {(Off,click,OnOffBtn),(OnOffBtn,check,DisplayLabel),(OnOffBtn,click,YesStartBtn),(Display,click,YesStartBtn),(YesStartBtn,click,UpBtn),(UpBtn,click,UpBtn),(UpBtn,check,DisplayLabel),(DisplayLabel,click,YesStartBtn),(UpBtn,click,UpBtn),(YesStartBtn,check,DisplayLabel),(YesStartBtn,click,YesStartBtn),(DisplayLabel,click,NoStopBtn),(NoStopBtn,check,DisplayLabel)}
 S = {Off}
 F = {NoStopBtn}

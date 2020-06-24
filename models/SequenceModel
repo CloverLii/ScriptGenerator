@@ -1,0 +1,60 @@
+<FSA>
+<state>SetInfusion</state>
+<startstate>Off</startstate>
+<finalstate>NoStopBtn</finalstate>
+<transition>
+    <fromstate>Off</fromstate>
+    <action>click</action>
+    <tostate>OnOffBtn</tostate>
+</transition>
+<transition>
+    <fromstate>OnOffBtn</fromstate>
+    <action>click</action>
+    <tostate>YesStartBtn</tostate>
+</transition>
+<transition>
+    <fromstate>OnOffBtn</fromstate>
+    <action>check</action>
+    <tostate>DisplayLabel</tostate>
+</transition>
+<transition>
+    <fromstate>DisplayLabel</fromstate>
+    <action>click</action>
+    <tostate>YesStartBtn</tostate>
+</transition>
+<transition>
+    <fromstate>YesStartBtn</fromstate>
+    <action>click</action>
+    <tostate>UpBtn</tostate>
+</transition>
+<transition>
+    <fromstate>UpBtn</fromstate>
+    <action>click</action>
+    <tostate>UpBtn</tostate>
+</transition>
+<transition>
+    <fromstate>UpBtn</fromstate>
+    <action>check</action>
+    <tostate>DisplayLabel</tostate>
+</transition>
+<transition>
+    <fromstate>YesStartBtn</fromstate>
+    <action>check</action>
+    <tostate>DisplayLabel</tostate>
+</transition>
+<transition>
+    <fromstate>YesStartBtn</fromstate>
+    <action>click</action>
+    <tostate>YesStartBtn</tostate>
+</transition>
+<transition>
+    <fromstate>DisplayLabel</fromstate>
+    <action>check</action>
+    <tostate>NoStopBtn</tostate>
+</transition>
+<transition>
+    <fromstate>NoStopBtn</fromstate>
+    <action>check</action>
+    <tostate>DisplayLabel</tostate>
+</transition>
+</FSA>
